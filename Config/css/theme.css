@@ -4,19 +4,39 @@
    ========================================= */
 
 /* font-family */
-/* font-family */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&display=swap");
 body {    font-family: "Noto Serif TC", "Source Han Serif TC", serif;}
 /* color */
-body { background-color: #ffffff;color: #171717;}
+body { }
 a {    color: inherit;}
 a:hover {    opacity: 0.65;}
 
 /* text-size */
-    .xs, span {font-size:5px;}
-    .s, p {font-size: 9px;}
-    .n, h3 {font-size: 11px;}
-    .l, h2 {font-size: 13px;}
-    .xl, h1 {font-size: 15px;}
+.xs, span {font-size: clamp(5px, 0.55vw, 9px);}
+.s, p {font-size: clamp(9px, 1vw, 16px);}
+.n, h3 {font-size: clamp(11px, 1.22vw, 19px);}
+.l, h2 {font-size: clamp(13px, 1.44vw, 23px);}
+.xl, h1 {font-size: clamp(15px, 1.67vw, 27px);}
 
+/* ===|  C  O  L  O  R |======================== */
+/* -------------- */
+/* BG COLOR DEMON */
+/* -------------- */
+/* BG #ffffff  */body, header, footer {background-color: #ffffff}
+
+/* ---------------- */
+/* TEXT COLOR DEMON */
+/* ---------------- */
+/* Color #242424 */ body,a ,a:hover {color: #242424;}
+/* Same to sub class Hack */ a{color: inherit;}
+
+/* ===|  D I V  |=============================== */
+/* ------------ */
+/*  WEB PLUGIN  */
+/* ------------ */
+/* post candy */
+.post-candy {
+    border-radius: 16px;
+    box-shadow: 2px 7px 11px rgba(0, 0, 0, 0.10);
+}
 

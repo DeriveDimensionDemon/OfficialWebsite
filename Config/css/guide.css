@@ -3,19 +3,16 @@
    Framework / positioning / sizing
    ========================================= */
 
-* {
-    box-sizing: border-box;
-}
+* {box-sizing: border-box;}
 
-html,
-body {
+html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
-body {
-    min-height: 100vh;
-}
+body {min-height: 100vh;overflow-x: hidden;}
 
 img {
     max-width: 100%;
@@ -23,67 +20,72 @@ img {
     display: block;
 }
 
-a {
-    text-decoration: none;
-}
+a {text-decoration: none;}
 
-/* Main page width */
-.page {
-    width: 630px;
-    margin: 0 auto;
-}
-
-/* Common vertical areas */
-.header {
-    width: 100%;
-}
-
-.main {
-    width: 100%;
-}
-
-.footer {
-    width: 100%;
-}
 
 /* ------------ */
 /*  GRID DEMON  */
 /* ------------ */
+
 /* Align go center */
-#out-warper, #logo, #logo img, #warper, #footer {margin-left: auto;margin-right: auto;}
+/* margin */ .out-warper, .logo, .logo img, header, footer, main-warper, .post-candy {margin-left: auto;margin-right: auto;}
+/* text-align */ footer {text-align: center;}
+/* align-items */ .logo, .post-candy, footer {align-items: center;}
+/* Flex CENTER */ .logo, footer {display: flex;justify-content: space-around;}
+/* Flex CENTER2 */ main-warper {display: flex;flex-direction: column;align-items: center;}
+
+
+/* position */ header, footer {position: fixed;}
+/* z-index MAX */ header, footer {z-index: 1000;}
+
+
+/* ------------- */
+/*  WIDTH DEMON  */
+/* ------------- */
+
+/* width 100% */ header, footer, main-warper {width: 100%;}
+/* MAX 500px */ .out-warper {max-width: 500px;}
+/* MAX 360px */ .post-candy {max-width: 360px;}
+
+
+/* ------------- */
+/* POSITION DEMON */
+/* ------------- */
+
+/* out-warper = DDD domain */ .out-warper {position: relative;width: 100%;max-width: 500px;min-height: 100vh;margin-left: auto;margin-right: auto;}
+
+/* header */ header {top: 0;left: 0;}
+
+/* main-warper */ main-warper {min-height: calc(100vh - 200px);padding-top: 100px;padding-bottom: 100px;}
+
+/* footer */ footer {bottom: 0;left: 0;}
+
 
 /* ------------ */
-/*    */
+/*     DIVs     */
 /* ------------ */
 
-.content {    width: 100%;}
+/* header */ .logo {height: 100px;}
+/* logo */ .logo img {width: 32px;}
 
-/* out-Warper */
-#out-warper {    max-width: 500px;}
-/* header */
-#logo {}
-#logo img {    width: 32px;}
-#nav 
-/* @media width < 1366px .burger {display:normal;.summon {display: none;}
-media width > 1366px .burger {display:none;.summon {display:normal; */
-.burger{}
-.summon{}
-/* Main */
-#warper {max-width: 360px;}
-/* footer */
-#footer {}
-/* ------- Index.html -------- */
+/* nav */ .nav {}
+
+/* burger / summon */ .burger {}
+.summon {}
+
+/* footer */ footer {height: 100px;}
 
 
-/* container */
-/* post */
-#post-candy{}
-#post-title{}
-#post-cover{}
-#post-text{}
-.index{}
-.sub{}
-#post-tag{}
+/* ------------ */
+/*  Index.html  */
+/* ------------ */
 
+/* content */ .content {width: 100%;}
 
-
+/* post */ .post-candy {padding: 13px;}
+.post-title {}
+.post-cover {}
+.post-text {}
+.index {}
+.sub {}
+.post-tag {}
