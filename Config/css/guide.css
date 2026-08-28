@@ -1,13 +1,38 @@
+/* =========================================
+   DDD Website — Layout
+   Framework / positioning / sizing
+   ========================================= */
+
+* {box-sizing: border-box;}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {min-height: 100vh;overflow-x: hidden;}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {text-decoration: none;}
+
+
 /* ------------ */
 /*  GRID DEMON  */
 /* ------------ */
 
-/* Align go center */ .out-warper, .logo, .logo img, header, footer, main-warper {margin-left: auto;margin-right: auto;}
+/* Align go center */
+/* margin */ .out-warper, .logo, .logo img, header, footer, main-warper, .post-candy {margin-left: auto;margin-right: auto;}
 /* text-align */ footer {text-align: center;}
-/* align-items */ .logo, footer, main-warper {align-items: center;}
+/* align-items */ .logo, .post-candy, footer {align-items: center;}
 /* Flex CENTER */ .logo, footer {display: flex;justify-content: space-around;}
-/* Flex CENTER2 */ main-warper {display: flex;justify-content: center;}
-/* Overflow hidden */ body{overflow: hidden;}
+/* Flex CENTER2 */ main-warper {display: flex;flex-direction: column;align-items: center;}
 
 
 /* position */ header, footer {position: fixed;}
@@ -20,17 +45,18 @@
 
 /* width 100% */ header, footer, main-warper {width: 100%;}
 /* MAX 500px */ .out-warper {max-width: 500px;}
+/* MAX 360px */ .post-candy {max-width: 360px;}
 
 
-/* --------------- */
-/* POSITION DEMON  */
-/* --------------- */
+/* ------------- */
+/* POSITION DEMON */
+/* ------------- */
 
-/* out-warper = DDD domain */ .out-warper {position: relative;width: 100%;max-width: 500px;height: 100vh;margin-left: auto;margin-right: auto;overflow: hidden;}
+/* out-warper = DDD domain */ .out-warper {position: relative;width: 100%;max-width: 500px;min-height: 100vh;margin-left: auto;margin-right: auto;}
 
 /* header */ header {top: 0;left: 0;}
 
-/* main-warper */ main-warper {position: absolute;top: 100px;bottom: 100px;left: 0;height: auto;}
+/* main-warper */ main-warper {min-height: calc(100vh - 200px);padding-top: 100px;padding-bottom: 100px;}
 
 /* footer */ footer {bottom: 0;left: 0;}
 
@@ -55,3 +81,11 @@
 /* ------------ */
 
 /* content */ .content {width: 100%;}
+
+/* post */ .post-candy {padding: 13px;}
+.post-title {}
+.post-cover {}
+.post-text {}
+.index {}
+.sub {}
+.post-tag {}
