@@ -46,15 +46,23 @@ a {
     width: 100%;
 }
 
-/* Basic content container */
-.content {
-    width: 100%;
-}
+/* ------------ */
+/*  GRID DEMON  */
+/* ------------ */
+/* Align go center */
+#out-warper, #logo, #logo img, #warper, #footer {margin-left: auto;margin-right: auto;}
+
+/* ------------ */
+/*    */
+/* ------------ */
+
+.content {    width: 100%;}
 
 /* out-Warper */
-#out-warper {margin: auto;max-width: 500px;}
+#out-warper {    max-width: 500px;}
 /* header */
-#logo img {width: 32px;}
+#logo {}
+#logo img {    width: 32px;}
 #nav 
 /* @media width < 1366px .burger {display:normal;.summon {display: none;}
 media width > 1366px .burger {display:none;.summon {display:normal; */

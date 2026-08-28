@@ -4,8 +4,9 @@
    ========================================= */
 
 /* font-family */
-body { font-family:"Noto Sans TC", sans-serif;}
-
+/* font-family */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&display=swap");
+body {    font-family: "Noto Serif TC", "Source Han Serif TC", serif;}
 /* color */
 body { background-color: #ffffff;color: #171717;}
 a {    color: inherit;}
