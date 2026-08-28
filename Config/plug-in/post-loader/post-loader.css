@@ -13,3 +13,15 @@
    .post-catalog-link.post
    .post-tag-link.post
 */
+
+/* EVERYWHERE SUMMON */
+.post-loader {max-width: 500px; padding: 10px;}
+
+/* FOR Index.html */
+.post-text.index {}
+
+/* FOR Codex.html */
+.post-text.codex {}
+
+/* FOR Post.html */
+.post-text.post {line-height: 2em;}

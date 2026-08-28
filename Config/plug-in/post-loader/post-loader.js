@@ -57,32 +57,48 @@
     }
 
     function renderCatalog(container, value) {
-        const wrapper = container.querySelector("span");
-        if (!wrapper) return;
+    const wrapper = container.querySelector("span");
+    if (!wrapper) return;
 
-        wrapper.textContent = "";
+    wrapper.textContent = "";
 
-        const path = Array.isArray(value)
-            ? value.filter(Boolean).map(String)
-            : String(value || "")
-                .split("/")
-                .map(part => part.trim())
-                .filter(Boolean);
+    // 固定第一層：Home
+    const homeLink = document.createElement("a");
+    homeLink.className = "post-catalog-link post";
+    homeLink.textContent = "⛚ Home";
+    homeLink.href = "Index.html";
+    wrapper.appendChild(homeLink);
 
-        path.forEach((part, index) => {
-            const link = document.createElement("a");
-            link.className = "post-catalog-link post";
-            link.textContent = index === 0 ? `⛞ ${part}` : `⛡ ${part}`;
+    wrapper.appendChild(document.createTextNode(" "));
 
-            const cumulativePath = path.slice(0, index + 1).join("/");
-            link.href = `Codex.html?catalog=${encodeURIComponent(cumulativePath)}`;
+    // 固定第二層：Codex
+    const codexLink = document.createElement("a");
+    codexLink.className = "post-catalog-link post";
+    codexLink.textContent = "⛞ Codex";
+    codexLink.href = "Codex.html";
+    wrapper.appendChild(codexLink);
 
-            wrapper.appendChild(link);
-            if (index < path.length - 1) {
-                wrapper.appendChild(document.createTextNode(" "));
-            }
-        });
-    }
+    // JSON Catalog：從第三層開始
+    const path = Array.isArray(value)
+        ? value.filter(Boolean).map(String)
+        : String(value || "")
+            .split("/")
+            .map(part => part.trim())
+            .filter(Boolean);
+
+    path.forEach((part, index) => {
+        wrapper.appendChild(document.createTextNode(" "));
+
+        const link = document.createElement("a");
+        link.className = "post-catalog-link post";
+        link.textContent = `⛡ ${part}`;
+
+        const cumulativePath = path.slice(0, index + 1).join("/");
+        link.href = `Codex.html?catalog=${encodeURIComponent(cumulativePath)}`;
+
+        wrapper.appendChild(link);
+    });
+}
 
     function renderImages(container, postId) {
         container.textContent = "";

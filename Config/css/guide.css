@@ -17,7 +17,7 @@ body {min-height: 100vh;overflow-x: hidden;}
 img {
     display: block;
     max-width: 100%;
-    padding: 8px;
+    padding: 8px 0;
     box-sizing: border-box;
 
 }
