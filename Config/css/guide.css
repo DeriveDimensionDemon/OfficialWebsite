@@ -56,15 +56,8 @@ a {
 /* header */
 #logo img {width: 32px;}
 #nav 
-@media width < 1366px {
-.burger {display:normal;}
-.summon {display: none;}
-}
-@media width > 1366px {
-.burger {display:none;}
-.summon {display:normal;}    
-}
-
+/* @media width < 1366px .burger {display:normal;.summon {display: none;}
+media width > 1366px .burger {display:none;.summon {display:normal; */
 .burger{}
 .summon{}
 /* Main */
