@@ -1,2 +1,15 @@
-/* Post Loader - intentionally empty during prototype stage. */
-/* Layout and visual styling will be added after the loader structure is confirmed. */
+/* Post Loader
+   Shared Post-system CSS hook.
+   Visual styling is intentionally left to the page/theme stage.
+
+   Page-specific Post elements use the .post marker:
+   .post-catalog.post
+   .post-images.post
+   .post-image.post
+   .post-date.post
+   .post-title.post
+   .post-text.post
+   .post-tag.post
+   .post-catalog-link.post
+   .post-tag-link.post
+*/

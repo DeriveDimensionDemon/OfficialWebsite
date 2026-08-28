@@ -10,73 +10,153 @@
         return;
     }
 
-    const textPath = `Codex-Text/${id}.json`;
+    const textPath = `Codex-Text/${encodeURIComponent(id)}.json`;
 
     fetch(textPath)
         .then(response => {
-            if (!response.ok) throw new Error(`JSON not found: ${textPath}`);
+            if (!response.ok) {
+                throw new Error(`JSON not found: ${textPath}`);
+            }
             return response.json();
         })
         .then(data => {
             if (data.id !== id) {
-                throw new Error(`ID mismatch: ${data.id || "(missing)"} !== ${id}`);
+                throw new Error(
+                    `ID mismatch: ${data.id || "(missing)"} !== ${id}`
+                );
             }
 
-            root.innerHTML = "";
-
-            // Images: same base ID, numbered by Windows-style (1), (2), ...
-            const images = document.createElement("div");
-
-            let imageNumber = 1;
-            let missingCount = 0;
-
-            const loadNextImage = () => {
-                const src = `Codex-Img/${id} (${imageNumber}).jpg`;
-                const img = document.createElement("img");
-                img.src = src;
-                img.alt = `${id} (${imageNumber})`;
-
-                img.onload = () => {
-                    images.appendChild(img);
-                    imageNumber++;
-                    loadNextImage();
-                };
-
-                img.onerror = () => {
-                    missingCount++;
-                    if (missingCount === 1) {
-                        renderPost(data, images);
-                    }
-                };
-            };
-
-            loadNextImage();
+            renderPost(data);
         })
         .catch(error => {
             root.textContent = error.message;
         });
 
-    function renderPost(data, images) {
-        root.appendChild(images);
+    function renderPost(data) {
+        const catalog = root.querySelector(".post-catalog.post");
+        const images = root.querySelector(".post-images.post");
+        const date = root.querySelector(".post-date.post");
+        const title = root.querySelector(".post-title.post");
+        const content = root.querySelector(".post-text.post");
+        const tag = root.querySelector(".post-tag.post");
 
-        const title = document.createElement("div");
-        title.textContent = data.title || "";
-        root.appendChild(title);
+        if (!catalog || !images || !date || !title || !content || !tag) {
+            throw new Error("Post Loader DOM structure is incomplete.");
+        }
 
-        const date = document.createElement("div");
-        date.textContent = data.date || "";
-        root.appendChild(date);
+        document.title = data.title
+            ? `${data.title} | Derive Dimension Demon`
+            : "Derive Dimension Demon Official Website";
 
-        const catalog = document.createElement("div");
-        catalog.textContent = data.catalog || "";
-        root.appendChild(catalog);
+        renderCatalog(catalog, data.catalog);
+        renderImages(images, id);
+        renderText(date, data.date || "");
+        renderTitle(title, data.title || "");
+        renderContent(content, data.content || "");
+        renderTags(tag, data.tag);
+    }
 
-        const content = document.createElement("div");
-        content.textContent = data.content || "";
-        root.appendChild(content);
+    function renderCatalog(container, value) {
+        const wrapper = container.querySelector("span");
+        if (!wrapper) return;
 
-        const tag = document.createElement("div");
-        tag.textContent = data.tag || "";
-        root.appendChild(tag);
+        wrapper.textContent = "";
+
+        const path = Array.isArray(value)
+            ? value.filter(Boolean).map(String)
+            : String(value || "")
+                .split("/")
+                .map(part => part.trim())
+                .filter(Boolean);
+
+        path.forEach((part, index) => {
+            const link = document.createElement("a");
+            link.className = "post-catalog-link post";
+            link.textContent = index === 0 ? `⛞ ${part}` : `⛡ ${part}`;
+
+            const cumulativePath = path.slice(0, index + 1).join("/");
+            link.href = `Codex.html?catalog=${encodeURIComponent(cumulativePath)}`;
+
+            wrapper.appendChild(link);
+            if (index < path.length - 1) {
+                wrapper.appendChild(document.createTextNode(" "));
+            }
+        });
+    }
+
+    function renderImages(container, postId) {
+        container.textContent = "";
+
+        let imageNumber = 1;
+
+        const loadNext = () => {
+            const src = `Codex-Img/${postId} (${imageNumber}).jpg`;
+            const img = new Image();
+
+            img.alt = `${postId} (${imageNumber})`;
+
+            img.onload = () => {
+                const imageBlock = document.createElement("div");
+                imageBlock.className = "post-image post";
+                imageBlock.appendChild(img);
+                container.appendChild(imageBlock);
+
+                imageNumber += 1;
+                loadNext();
+            };
+
+            img.onerror = () => {
+                // Image numbering is intentionally contiguous:
+                // the first missing number ends the image sequence.
+            };
+
+            img.src = src;
+        };
+
+        loadNext();
+    }
+
+    function renderText(container, value) {
+        const target = container.querySelector("span");
+        if (target) target.textContent = value;
+    }
+
+    function renderTitle(container, value) {
+        const target = container.querySelector("h2");
+        if (target) target.textContent = value;
+    }
+
+    function renderContent(container, value) {
+        const target = container.querySelector("p");
+        if (target) target.textContent = value;
+    }
+
+    function renderTags(container, value) {
+        const wrapper = container.querySelector("span");
+        if (!wrapper) return;
+
+        wrapper.textContent = "";
+
+        const tags = Array.isArray(value)
+            ? value
+            : String(value || "")
+                .split(",")
+                .map(tag => tag.trim())
+                .filter(Boolean);
+
+        tags.forEach((tagText, index) => {
+            const link = document.createElement("a");
+            link.className = "post-tag-link post";
+            link.textContent = tagText;
+            link.href = `Codex.html?tag=${encodeURIComponent(
+                tagText.replace(/^#/, "")
+            )}`;
+
+            wrapper.appendChild(link);
+
+            if (index < tags.length - 1) {
+                wrapper.appendChild(document.createTextNode(" "));
+            }
+        });
     }
 })();
