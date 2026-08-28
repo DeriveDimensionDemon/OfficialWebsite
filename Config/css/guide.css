@@ -15,9 +15,11 @@ html, body {
 body {min-height: 100vh;overflow-x: hidden;}
 
 img {
-    max-width: 100%;
-    height: auto;
     display: block;
+    max-width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+
 }
 
 a {text-decoration: none;}
