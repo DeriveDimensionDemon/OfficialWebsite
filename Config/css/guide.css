@@ -28,9 +28,9 @@ a {text-decoration: none;}
 /* ------------ */
 
 /* Align go center */
-/* margin */ .out-warper, .logo, .logo img, header, footer, main-warper, .post-candy {margin-left: auto;margin-right: auto;}
+/* margin */ .out-warper, .logo, .logo img, header, footer, main-warper, .candy-river {margin-left: auto;margin-right: auto;}
 /* text-align */ footer {text-align: center;}
-/* align-items */ .logo, .post-candy, footer {align-items: center;}
+/* align-items */ .logo, .candy-river, footer {align-items: center;}
 /* Flex CENTER */ .logo, footer {display: flex;justify-content: space-around;}
 /* Flex CENTER2 */ main-warper {display: flex;flex-direction: column;align-items: center;}
 
@@ -45,7 +45,7 @@ a {text-decoration: none;}
 
 /* width 100% */ header, footer, main-warper {width: 100%;}
 /* MAX 500px */ .out-warper {max-width: 500px;}
-/* MAX 360px */ .post-candy {max-width: 360px;}
+/* MAX 360px */ 
 
 
 /* ------------- */
@@ -82,7 +82,7 @@ a {text-decoration: none;}
 
 /* content */ .content {width: 100%;}
 
-/* post */ .post-candy {padding: 13px;}
+/* post */ 
 .post-title {}
 .post-cover {}
 .post-text {}
