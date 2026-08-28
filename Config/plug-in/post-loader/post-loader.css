@@ -18,7 +18,9 @@
 .post-loader {max-width: 500px; padding: 10px;}
 
 /* FOR Index.html */
-.post-text.index {}
+.post-title.index { }
+.post-text.index {  height: calc(100vh - 470px);}
+
 
 /* FOR Codex.html */
 .post-text.codex {}
