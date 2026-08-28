@@ -1,0 +1,88 @@
+/* =========================================
+   DDD Website — Layout
+   Framework / positioning / sizing
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Main page width */
+.page {
+    width: 630px;
+    margin: 0 auto;
+}
+
+/* Common vertical areas */
+.header {
+    width: 100%;
+}
+
+.main {
+    width: 100%;
+}
+
+.footer {
+    width: 100%;
+}
+
+/* Basic content container */
+.content {
+    width: 100%;
+}
+
+/* out-Warper */
+#out-warper {margin: auto;max-width: 500px;}
+/* header */
+#logo img {width: 32px;}
+#nav 
+@media width < 1366px {
+.burger {display:normal;}
+.summon {display: none;}
+}
+@media width > 1366px {
+.burger {display:none;}
+.summon {display:normal;}    
+}
+
+.burger{}
+.summon{}
+/* Main */
+#warper {max-width: 360px;}
+/* footer */
+#footer {}
+/* ------- Index.html -------- */
+
+
+/* container */
+/* post */
+#post-candy{}
+#post-title{}
+#post-cover{}
+#post-text{}
+.index{}
+.sub{}
+#post-tag{}
+
+
+

@@ -1,0 +1,21 @@
+/* =========================================
+   DDD Website — Style
+   Color / typography / visual appearance
+   ========================================= */
+
+/* font-family */
+body { font-family:"Noto Sans TC", sans-serif;}
+
+/* color */
+body { background-color: #ffffff;color: #171717;}
+a {    color: inherit;}
+a:hover {    opacity: 0.65;}
+
+/* text-size */
+    .xs, span {font-size:5px;}
+    .s, p {font-size: 9px;}
+    .n, h3 {font-size: 11px;}
+    .l, h2 {font-size: 13px;}
+    .xl, h1 {font-size: 15px;}
+
+
