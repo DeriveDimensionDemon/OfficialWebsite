@@ -65,7 +65,7 @@
     // 固定第一層：Home
     const homeLink = document.createElement("a");
     homeLink.className = "post-catalog-link post";
-    homeLink.textContent = "⛚ Home";
+    homeLink.textContent = "⛚　Home";
     homeLink.href = "Index.html";
     wrapper.appendChild(homeLink);
 
@@ -74,7 +74,7 @@
     // 固定第二層：Codex
     const codexLink = document.createElement("a");
     codexLink.className = "post-catalog-link post";
-    codexLink.textContent = "⛞ Codex";
+    codexLink.textContent = "⛞　Codex";
     codexLink.href = "Codex.html";
     wrapper.appendChild(codexLink);
 

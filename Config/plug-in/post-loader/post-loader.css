@@ -24,4 +24,5 @@
 .post-text.codex {}
 
 /* FOR Post.html */
-.post-text.post {line-height: 2em;}
+.post-date.post {letter-spacing: 35px; text-align: center;}
+.post-text.post {line-height: 2em;letter-spacing: 3px;}
