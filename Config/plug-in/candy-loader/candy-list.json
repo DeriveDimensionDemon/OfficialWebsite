@@ -1,5 +1,17 @@
 [
-  "_Introduction",
-  "20260828-01",
-  "20260828-02"
+  {
+    "id": "_Introduction",
+    "title": "Introduction",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "20260828-02",
+    "title": "Codex Post Test",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "20260828-01",
+    "title": "SHOOTERLOVE",
+    "date": "2026-08-28"
+  }
 ]

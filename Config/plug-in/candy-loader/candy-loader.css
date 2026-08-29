@@ -1,50 +1,106 @@
 /* CANDY LOADER */
 
-/* GUIDE */
-.candy-loader {
+/* Index hero: deliberately keeps the original 005-style default cover. */
+.candy-cover.index {
     width: 360px;
+    height: 500px;
     max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("../../img/cover-def.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.candy-loader {
+    width: 100%;
+    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
 }
 
+/* River is a normal vertical list; no scroll-loading is applied to covers. */
+.candy-river.index {
+    width: 100%;
+    max-width: 500px;
+    margin: 600px auto 0;
+    padding: 0;
+}
+
 .post-cover.index {
     width: 360px;
-    max-width: 100%;
+    height: 360px;
     max-height: 600px;
-    position: relative;
-    overflow: hidden;
-    margin: 0 auto;
-    background-repeat: no-repeat;
-    background-position: center;
+    flex: 0 0 360px;
     background-size: cover;
-    cursor: pointer;
-}
-
-/* The transparent PNG is the fixed foreground/frame and supplies the
-   natural 360x600 block height without shrinking the background image. */
-.post-cover.index > img {
+    background-position: center;
+    background-repeat: no-repeat;
     display: block;
+}
+
+.post-cover.index-link {
+    display: block;
+    width: 360px;
+    height: 360px;
+    flex: 0 0 360px;
+}
+
+.candy-post.index {
     width: 100%;
-    height: auto;
-    max-height: 600px;
-    position: relative;
-    z-index: 2;
-    pointer-events: none;
+    min-height: 360px;
+    margin: 0 0 72px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-sizing: border-box;
 }
 
-.post-cover.index + .post-cover.index {
-    margin-top: 24px;
+.post-title.index {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
 }
 
-@media (max-width: 360px) {
-    .post-cover.index {
-        width: 100%;
+.post-title.index a {
+    text-decoration: none;
+}
+
+.candy-post.index.is-visible {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+}
+
+/* Each row enters from the lower-left, not as a generic fade-up. */
+.candy-post.index.scroll-enter {
+    opacity: 0;
+    transform: translate3d(-120px, 120px, 0);
+    transition: opacity 600ms ease, transform 700ms cubic-bezier(.2,.7,.2,1);
+}
+
+@media (max-width: 520px) {
+    .post-cover.index,
+    .post-cover.index-link {
+        width: min(360px, 72vw);
+        height: min(360px, 72vw);
+        flex-basis: min(360px, 72vw);
+    }
+
+    .candy-post.index {
+        gap: 12px;
+        min-height: min(360px, 72vw);
+    }
+
+    .candy-river.index {
+        margin-top: 600px;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .post-cover.index {
-        scroll-behavior: auto;
+    .candy-post.index.scroll-enter {
+        opacity: 1;
+        transform: none;
+        transition: none;
     }
 }
