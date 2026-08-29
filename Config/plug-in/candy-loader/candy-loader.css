@@ -1,5 +1,39 @@
+/* CANDY LOADER */
+
+
 /* GUIDE */
-.candy-river {padding: 13px; max-width: 360px;margin-left: auto;margin-right: auto;align-items: center;}
+.candy-river {padding: 32px; max-width: 360px;margin-left: auto;margin-right: auto;align-items: center;}
+.candy-boss {z-index: 1000;    position: absolute;    left: 32px;    bottom: 10px;}
 
 /* THEME */ 
-.candy-river {    border-radius: 16px;    box-shadow: 2px 7px 11px rgba(0, 0, 0, 0.10);}
+.candy-river { background-color: rgb(255 255 255 / 82%) ;text-align: justify; }
+
+
+.candy-loader {    max-width: 360px;    width: 100%;    position: relative;
+}
+
+.candy-river {    position: relative;    z-index: 2;}
+
+.candy-cover {
+    position: absolute;
+    inset: 0;
+    background-image: url("../../img/cover-def.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: 1;
+}
+
+.candy-cover {
+    cursor: pointer;
+}
+
+.candy-river {
+    cursor: pointer;
+}
+
+.candy-cover[hidden],
+.candy-river[hidden] {
+    display: none;
+}

@@ -12,11 +12,11 @@ a {    color: inherit;}
 a:hover {    opacity: 0.65;}
 
 /* text-size */
-.xs, span {font-size: clamp(5px, 0.55vw, 9px);}
-.s, p {font-size: clamp(9px, 1vw, 16px);}
-.n, h3 {font-size: clamp(11px, 1.22vw, 19px);}
-.l, h2 {font-size: clamp(13px, 1.44vw, 23px);}
-.xl, h1 {font-size: clamp(15px, 1.67vw, 27px);}
+.xs, span {font-size: clamp(8px, 0.55vw, 9px);}
+.s, p {font-size: clamp(14px, 1vw, 16px);}
+.n, h3 {font-size: clamp(16px, 1.22vw, 19px);}
+.l, h2 {font-size: clamp(18px, 1.44vw, 23px);}
+.xl, h1 {font-size: clamp(22px, 1.67vw, 27px);}
 
 /* ===|  C  O  L  O  R |======================== */
 /* -------------- */
