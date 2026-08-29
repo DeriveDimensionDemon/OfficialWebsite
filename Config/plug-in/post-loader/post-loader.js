@@ -66,7 +66,7 @@
     const homeLink = document.createElement("a");
     homeLink.className = "post-catalog-link post";
     homeLink.textContent = "⛚ Home";
-    homeLink.href = "Index.html";
+    homeLink.href = "index.html";
     wrapper.appendChild(homeLink);
 
     wrapper.appendChild(document.createTextNode(" "));
