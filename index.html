@@ -14,9 +14,7 @@
     <link rel="stylesheet" href="Config/css/theme.css">
     <!-- Plug-in Loader -->
     <link rel="stylesheet" href="Config/plug-in/candy-loader/candy-loader.css">
-    <script src="Config/plug-in/candy-loader/candy-loader.js"></script>    
-    <link rel="stylesheet" href="Config/plug-in/post-loader/post-loader.css">
-    <script src="Config/plug-in/post-loader/post-loader.js" defer></script>
+    <script src="Config/plug-in/candy-loader/candy-loader.js" defer></script>
 </head>
 
 <body>
@@ -27,10 +25,27 @@
 
 <main-warper>
 <!-- 本頁特有內容 START -->
-  <div class="candy-loader" data-post-id="_Introduction"><!-- a candy is a BLOCK group -->
-   <div class="candy-cover"><img src="Config/plug-in/candy-loader/candy-loader-fix.png"></div><!-- Will be Img shower full cover --> 
-  </div> 
- <!-- same frame as post's -->
+  <div class="candy-loader">
+
+    <!--
+      Candy order: newest first.
+      Only posts with a Codex-Text JSON are listed here.
+      Add a new .post-cover.index block when a new post is published.
+    -->
+
+    <div class="post-cover index" data-post-id="20260828-02">
+      <img src="Config/plug-in/candy-loader/candy-loader-fix.png" alt="">
+    </div>
+
+    <div class="post-cover index" data-post-id="20260828-01">
+      <img src="Config/plug-in/candy-loader/candy-loader-fix.png" alt="">
+    </div>
+
+    <div class="post-cover index" data-post-id="_Introduction">
+      <img src="Config/plug-in/candy-loader/candy-loader-fix.png" alt="">
+    </div>
+
+  </div>
 <!-- 本頁特有內容 END -->
 </main-warper>
 <footer><span>© Produced by Derive Dimension Demon</span></footer>

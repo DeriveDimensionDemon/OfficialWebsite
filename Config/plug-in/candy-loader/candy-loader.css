@@ -1,75 +1,50 @@
 /* CANDY LOADER */
 
 /* GUIDE */
-.candy-river {
-    padding: 32px;
-    max-width: 360px;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: center;
-}
-
-.candy-boss {
-    z-index: 1000;
-    position: absolute;
-    left: 32px;
-    bottom: 10px;
-}
-
-/* THEME */
-.candy-river {
-    background-color: rgb(255 255 255 / 82%);
-    text-align: justify;
-}
-
-/*
- * Index cover:
- * The cover is intentionally a fixed-height display area.
- * candy-loader-fix.png is 360x600 transparent PNG.
- * background-size: cover keeps it at its natural width on a 360px box
- * and crops vertically instead of shrinking it to fit the height.
- */
 .candy-loader {
-    max-width: 360px;
-    width: 100%;
-    height: 500px;
-    position: relative;
+    width: 360px;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
-.candy-cover {
-    position: absolute;
-    inset: 0;
-    display: block;
-    background-image: url(../../img/cover-def.jpg);
-    background-size: cover;
-    background-position: center;
+.post-cover.index {
+    width: 360px;
+    max-width: 100%;
+    max-height: 600px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
     background-repeat: no-repeat;
-    z-index: 1;
+    background-position: center;
+    background-size: cover;
     cursor: pointer;
-    text-decoration: none;
 }
 
-.candy-river {
+/* The transparent PNG is the fixed foreground/frame and supplies the
+   natural 360x600 block height without shrinking the background image. */
+.post-cover.index > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 600px;
     position: relative;
     z-index: 2;
-    cursor: pointer;
+    pointer-events: none;
 }
 
-.candy-cover[hidden],
-.candy-river[hidden] {
-    display: none;
+.post-cover.index + .post-cover.index {
+    margin-top: 24px;
 }
 
 @media (max-width: 360px) {
-    .candy-loader {
-        height: min(500px, calc(100vw * 1.3889));
+    .post-cover.index {
+        width: 100%;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .candy-cover {
+    .post-cover.index {
         scroll-behavior: auto;
     }
 }

@@ -1,29 +1,21 @@
 (() => {
-    const root = document.querySelector(".candy-loader");
-    if (!root) return;
+    const loader = document.querySelector(".candy-loader");
+    if (!loader) return;
 
-    const cover = root.querySelector(".candy-cover");
-    const river = root.querySelector(".candy-river");
+    const covers = Array.from(loader.querySelectorAll(".post-cover.index"));
 
-    if (!cover || !river) return;
+    // Each index cover is an independent post entry.
+    // The actual cover is the first image in Codex-Img for that post;
+    // the transparent candy-loader-fix.png remains the foreground layer.
+    covers.forEach((cover) => {
+        const postId = cover.dataset.postId;
+        if (!postId) return;
 
-    const postId = root.dataset.postId;
+        const imageUrl = `Codex-Img/${encodeURIComponent(postId)}%20(1).jpg`;
+        cover.style.backgroundImage = `url("${imageUrl}")`;
 
-    // 初始：只顯示 Cover
-    river.hidden = true;
-
-    // 點 Cover → 展開 River
-    cover.addEventListener("click", () => {
-        cover.hidden = true;
-        river.hidden = false;
-    });
-
-    // 點 River → 進入該篇 Post
-    // 如果點到 breadcrumb 的連結，則保留 breadcrumb 原本功能
-    river.addEventListener("click", (event) => {
-        if (event.target.closest("a")) return;
-
-        window.location.href =
-            `Post.html?id=${encodeURIComponent(postId)}`;
+        cover.addEventListener("click", () => {
+            window.location.href = `Post.html?id=${encodeURIComponent(postId)}`;
+        });
     });
 })();
