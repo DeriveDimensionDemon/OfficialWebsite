@@ -1,39 +1,75 @@
 /* CANDY LOADER */
 
-
 /* GUIDE */
-.candy-river {padding: 32px; max-width: 360px;margin-left: auto;margin-right: auto;align-items: center;}
-.candy-boss {z-index: 1000;    position: absolute;    left: 32px;    bottom: 10px;}
-
-/* THEME */ 
-.candy-river { background-color: rgb(255 255 255 / 82%) ;text-align: justify; }
-
-
-.candy-loader {    max-width: 360px;    width: 100%;    position: relative;
+.candy-river {
+    padding: 32px;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
 }
 
-.candy-river {    position: relative;    z-index: 2;}
+.candy-boss {
+    z-index: 1000;
+    position: absolute;
+    left: 32px;
+    bottom: 10px;
+}
+
+/* THEME */
+.candy-river {
+    background-color: rgb(255 255 255 / 82%);
+    text-align: justify;
+}
+
+/*
+ * Index cover:
+ * The cover is intentionally a fixed-height display area.
+ * candy-loader-fix.png is 360x600 transparent PNG.
+ * background-size: cover keeps it at its natural width on a 360px box
+ * and crops vertically instead of shrinking it to fit the height.
+ */
+.candy-loader {
+    max-width: 360px;
+    width: 100%;
+    height: 500px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .candy-cover {
     position: absolute;
     inset: 0;
-    background-image: url("../../img/cover-def.jpg");
+    display: block;
+    background-image: url(../../img/cover-def.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     z-index: 1;
-}
-
-.candy-cover {
     cursor: pointer;
+    text-decoration: none;
 }
 
 .candy-river {
+    position: relative;
+    z-index: 2;
     cursor: pointer;
 }
 
 .candy-cover[hidden],
 .candy-river[hidden] {
     display: none;
+}
+
+@media (max-width: 360px) {
+    .candy-loader {
+        height: min(500px, calc(100vw * 1.3889));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .candy-cover {
+        scroll-behavior: auto;
+    }
 }
