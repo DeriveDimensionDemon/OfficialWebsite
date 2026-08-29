@@ -13,24 +13,41 @@
     <link rel="stylesheet" href="Config/css/guide.css">
     <link rel="stylesheet" href="Config/css/theme.css">
     <!-- Plug-in Loader -->
+    <!-- Candy -->
     <link rel="stylesheet" href="Config/plug-in/candy-loader/candy-loader.css">
     <script src="Config/plug-in/candy-loader/candy-loader.js"></script>    
+    <!-- Post -->
     <link rel="stylesheet" href="Config/plug-in/post-loader/post-loader.css">
     <script src="Config/plug-in/post-loader/post-loader.js" defer></script>
-    <link rel="stylesheet" href="Config/plug-in/html-loader/html-loader.css">
-    <script src="Config/plug-in/html-loader/html-loader.js" defer></script>
+    <!-- Codex -->
+    <link rel="stylesheet" href="Config/plug-in/codex-loader/codex-loader.css">
+    <script src="Config/plug-in/codex-loader/codex-loader.js" defer></script>
 </head>
 
 <body>
 <div class="out-warper"><!-- out-warper lock max-width -->
-<header>
-  <div class="burger-summoner">
-    <div id="html-burger" class="html-loader">    </div>
-  </div>
-  <div class="logo"><a href="index.html"><img src="Config/img/icon_xs.png"></a></div>
-</header>
+
 
 <main-warper>
+  <header>
+  <div class="logo"><a href="index.html"><img src="Config/img/icon-xs.png"></a></div>
+  <!-- 本業特有頁首 START -->
+   <div class="codex-loader">
+    <div id="codex-filter-catalog" class="codex-selector index">
+      <select>
+        <option value="" disabled selected hidden>⛛ Select Catalog</option>
+      </select>
+    </div>
+
+    <div id="codex-filter-tag" class="codex-selector index">
+      <select>
+        <option value="" disabled selected hidden>⛛ Select Tag</option>
+      </select>
+    </div>
+<!-- 本頁特有頁首 END -->
+</div>
+
+</header>
 <!-- 本頁特有內容 START -->
  <div class="candy-boss">
      <div class="candy-banshee"><img src="Config/plug-in/candy-loader/candy-loader-fix.png"></div>

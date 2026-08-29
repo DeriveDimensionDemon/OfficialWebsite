@@ -1,0 +1,45 @@
+{
+    "_comment": "=== Here's Will be list _.json in SELECT ===",
+
+    "selector": {
+        "print_posts": [
+            "Official",
+            "Policy"
+        ]
+    },
+
+    "_comment_catalog": "=== Tell Which Post belong to What Catalog ===",
+
+    "catalogs": {
+        "Official": {
+            "posts": [
+                "_Introduction",
+                "_Characters"
+            ]
+        },
+        "Games": {
+            "posts": [
+                "20260828-01"
+            ]
+        },
+        "Writing": {
+            "children": {
+                "Short": {
+                    "posts": [
+                        "20260828-02"
+                    ]
+                },
+                "Drama": {
+                    "posts": []
+                }
+            }
+        },
+        "Policy": {
+            "posts": [
+                "_Privacy-Policy",
+                "_Terms",
+                "_Fan-Content-Guidelines"
+            ]
+        }
+    }
+}

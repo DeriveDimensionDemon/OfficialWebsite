@@ -15,7 +15,13 @@
 */
 
 /* EVERYWHERE SUMMON */
-.post-loader {max-width: 500px; padding: 10px;}
+.post-loader {
+    width: 100%;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
 /* FOR Index.html */
 
 .post-title.index {
