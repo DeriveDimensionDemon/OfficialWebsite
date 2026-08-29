@@ -1,0 +1,8 @@
+{
+  "id": "20260828-02",
+  "title": "Codex Post Test",
+  "date": "2026-08-28",
+  "catalog": "Codex",
+  "tag": "#DDD_Codex,#Test",
+  "content": "這是一篇 Post Loader 測試文章，用來確認 JSON 與 Codex-Img 的 ID 同步命名機制。"
+}
