@@ -24,3 +24,16 @@
 
     z-index: 1;
 }
+
+.candy-cover {
+    cursor: pointer;
+}
+
+.candy-river {
+    cursor: pointer;
+}
+
+.candy-cover[hidden],
+.candy-river[hidden] {
+    display: none;
+}
