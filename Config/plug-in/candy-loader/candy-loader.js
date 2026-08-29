@@ -2,67 +2,28 @@
     const root = document.querySelector(".candy-loader");
     if (!root) return;
 
-    const river = root.querySelector(".candy-river.index");
-    if (!river) return;
+    const cover = root.querySelector(".candy-cover");
+    const river = root.querySelector(".candy-river");
 
-    const listPath = "Config/plug-in/candy-loader/candy-list.json";
+    if (!cover || !river) return;
 
-    fetch(listPath)
-        .then(response => {
-            if (!response.ok) throw new Error(`Candy list not found: ${listPath}`);
-            return response.json();
-        })
-        .then(posts => {
-            river.textContent = "";
+    const postId = root.dataset.postId;
 
-            posts.forEach(post => {
-                const row = document.createElement("article");
-                row.className = "candy-post index scroll-enter";
+    // 初始：只顯示 Cover
+    river.hidden = true;
 
-                const link = document.createElement("a");
-                link.className = "post-cover index-link";
-                link.href = `Post.html?id=${encodeURIComponent(post.id)}`;
-                link.setAttribute("aria-label", post.title || post.id);
+    // 點 Cover → 展開 River
+    cover.addEventListener("click", () => {
+        cover.hidden = true;
+        river.hidden = false;
+    });
 
-                const cover = document.createElement("div");
-                cover.className = "post-cover index";
-                cover.style.backgroundImage =
-                    `url("Codex-Img/${encodeURIComponent(post.id)}%20(1).jpg")`;
-                link.appendChild(cover);
+    // 點 River → 進入該篇 Post
+    // 如果點到 breadcrumb 的連結，則保留 breadcrumb 原本功能
+    river.addEventListener("click", (event) => {
+        if (event.target.closest("a")) return;
 
-                const title = document.createElement("h2");
-                title.className = "post-title index";
-
-                const titleLink = document.createElement("a");
-                titleLink.href = `Post.html?id=${encodeURIComponent(post.id)}`;
-                titleLink.textContent = post.title || post.id;
-                title.appendChild(titleLink);
-
-                row.appendChild(link);
-                row.appendChild(title);
-                river.appendChild(row);
-            });
-
-            const items = river.querySelectorAll(".candy-post.index");
-            if (!("IntersectionObserver" in window)) {
-                items.forEach(item => item.classList.add("is-visible"));
-                return;
-            }
-
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    entry.target.classList.add("is-visible");
-                    obs.unobserve(entry.target);
-                });
-            }, {
-                threshold: 0.08,
-                rootMargin: "0px 0px -10% 0px"
-            });
-
-            items.forEach(item => observer.observe(item));
-        })
-        .catch(error => {
-            river.textContent = error.message;
-        });
+        window.location.href =
+            `Post.html?id=${encodeURIComponent(postId)}`;
+    });
 })();

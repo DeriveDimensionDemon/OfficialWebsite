@@ -1,106 +1,75 @@
 /* CANDY LOADER */
 
-/* Index hero: deliberately keeps the original 005-style default cover. */
-.candy-cover.index {
-    width: 360px;
-    height: 500px;
-    max-width: 100%;
+/* GUIDE */
+.candy-river {
+    padding: 32px;
+    max-width: 360px;
     margin-left: auto;
     margin-right: auto;
-    background-image: url("../../img/cover-def.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-}
-
-.candy-loader {
-    width: 100%;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* River is a normal vertical list; no scroll-loading is applied to covers. */
-.candy-river.index {
-    width: 100%;
-    max-width: 500px;
-    margin: 600px auto 0;
-    padding: 0;
-}
-
-.post-cover.index {
-    width: 360px;
-    height: 360px;
-    max-height: 600px;
-    flex: 0 0 360px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: block;
-}
-
-.post-cover.index-link {
-    display: block;
-    width: 360px;
-    height: 360px;
-    flex: 0 0 360px;
-}
-
-.candy-post.index {
-    width: 100%;
-    min-height: 360px;
-    margin: 0 0 72px;
-    display: flex;
     align-items: center;
-    gap: 20px;
-    box-sizing: border-box;
 }
 
-.post-title.index {
-    flex: 1 1 auto;
-    min-width: 0;
-    margin: 0;
+.candy-boss {
+    z-index: 1000;
+    position: absolute;
+    left: 32px;
+    bottom: 10px;
 }
 
-.post-title.index a {
+/* THEME */
+.candy-river {
+    background-color: rgb(255 255 255 / 82%);
+    text-align: justify;
+}
+
+/*
+ * Index cover:
+ * The cover is intentionally a fixed-height display area.
+ * candy-loader-fix.png is 360x600 transparent PNG.
+ * background-size: cover keeps it at its natural width on a 360px box
+ * and crops vertically instead of shrinking it to fit the height.
+ */
+.candy-loader {
+    max-width: 360px;
+    width: 100%;
+    height: 500px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.candy-cover {
+    position: absolute;
+    inset: 0;
+    display: block;
+    background-image: url(../../img/cover-def.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    cursor: pointer;
     text-decoration: none;
 }
 
-.candy-post.index.is-visible {
-    opacity: 1;
-    transform: translate3d(0,0,0);
+.candy-river {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
 }
 
-/* Each row enters from the lower-left, not as a generic fade-up. */
-.candy-post.index.scroll-enter {
-    opacity: 0;
-    transform: translate3d(-120px, 120px, 0);
-    transition: opacity 600ms ease, transform 700ms cubic-bezier(.2,.7,.2,1);
+.candy-cover[hidden],
+.candy-river[hidden] {
+    display: none;
 }
 
-@media (max-width: 520px) {
-    .post-cover.index,
-    .post-cover.index-link {
-        width: min(360px, 72vw);
-        height: min(360px, 72vw);
-        flex-basis: min(360px, 72vw);
-    }
-
-    .candy-post.index {
-        gap: 12px;
-        min-height: min(360px, 72vw);
-    }
-
-    .candy-river.index {
-        margin-top: 600px;
+@media (max-width: 360px) {
+    .candy-loader {
+        height: min(500px, calc(100vw * 1.3889));
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .candy-post.index.scroll-enter {
-        opacity: 1;
-        transform: none;
-        transition: none;
+    .candy-cover {
+        scroll-behavior: auto;
     }
 }

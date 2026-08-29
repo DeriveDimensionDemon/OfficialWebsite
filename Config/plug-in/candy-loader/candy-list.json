@@ -1,10 +1,13 @@
 [
   {
+<<<<<<< HEAD
+=======
     "id": "_Introduction",
     "title": "Introduction",
     "date": "2026-08-28"
   },
   {
+>>>>>>> a5b79220531ae84e1eb12523cc178e20a405ca9e
     "id": "20260828-02",
     "title": "Codex Post Test",
     "date": "2026-08-28"
@@ -13,5 +16,15 @@
     "id": "20260828-01",
     "title": "SHOOTERLOVE",
     "date": "2026-08-28"
+<<<<<<< HEAD
+  },
+  {
+    "id": "_Introduction",
+    "title": "Introduction",
+    "date": "2026-08-28"
   }
 ]
+=======
+  }
+]
+>>>>>>> a5b79220531ae84e1eb12523cc178e20a405ca9e
