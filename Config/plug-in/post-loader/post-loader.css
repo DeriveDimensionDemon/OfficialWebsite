@@ -28,3 +28,18 @@
 /* FOR Post.html */
 .post-date.post {letter-spacing: 35px; text-align: center;}
 .post-text.post {line-height: 2em;letter-spacing: 3px;}
+
+
+/* FAKE SCROLL LOADING */
+.scroll-load {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 420ms ease, transform 420ms ease;
+}
+.scroll-load.is-loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+    .scroll-load { opacity: 1; transform: none; transition: none; }
+}

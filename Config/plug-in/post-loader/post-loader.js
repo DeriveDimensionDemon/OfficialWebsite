@@ -113,9 +113,10 @@
 
             img.onload = () => {
                 const imageBlock = document.createElement("div");
-                imageBlock.className = "post-image post";
+                imageBlock.className = "post-image post scroll-load";
                 imageBlock.appendChild(img);
                 container.appendChild(imageBlock);
+                observeScrollLoad(imageBlock);
 
                 imageNumber += 1;
                 loadNext();
@@ -176,3 +177,23 @@
         });
     }
 })();
+
+
+    // 仿載入：內容進入視窗時才浮現。
+    const scrollLoadObserver = "IntersectionObserver" in window
+        ? new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-loaded");
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" })
+        : null;
+
+    function observeScrollLoad(element) {
+        if (!scrollLoadObserver) {
+            element.classList.add("is-loaded");
+            return;
+        }
+        scrollLoadObserver.observe(element);
+    }

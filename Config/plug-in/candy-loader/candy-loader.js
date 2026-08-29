@@ -1,29 +1,51 @@
 (() => {
-    const root = document.querySelector(".candy-loader");
-    if (!root) return;
+    function initCandyLoader() {
+        const root = document.querySelector(".candy-loader");
+        if (!root) return;
 
-    const cover = root.querySelector(".candy-cover");
-    const river = root.querySelector(".candy-river");
+        const cover = root.querySelector(".candy-cover");
+        const river = root.querySelector(".candy-river");
+        if (!cover || !river) return;
 
-    if (!cover || !river) return;
+        // 初始：只顯示 Cover。
+        root.classList.remove("is-open");
+        river.hidden = true;
 
-    const postId = root.dataset.postId;
+        const open = () => {
+            root.classList.add("is-open");
+            river.hidden = false;
+        };
 
-    // 初始：只顯示 Cover
-    river.hidden = true;
+        const close = () => {
+            root.classList.remove("is-open");
+            river.hidden = true;
+        };
 
-    // 點 Cover → 展開 River
-    cover.addEventListener("click", () => {
-        cover.hidden = true;
-        river.hidden = false;
-    });
+        // PC：滑入圖片區域時現身；滑出整個 Candy 區域時收回。
+        root.addEventListener("pointerenter", (event) => {
+            if (event.pointerType === "mouse") open();
+        });
 
-    // 點 River → 進入該篇 Post
-    // 如果點到 breadcrumb 的連結，則保留 breadcrumb 原本功能
-    river.addEventListener("click", (event) => {
-        if (event.target.closest("a")) return;
+        root.addEventListener("pointerleave", (event) => {
+            if (event.pointerType === "mouse") close();
+        });
 
-        window.location.href =
-            `Post.html?id=${encodeURIComponent(postId)}`;
-    });
+        // 手機／觸控：第一次點 Cover 開啟；再次點 Candy 區域關閉。
+        root.addEventListener("click", (event) => {
+            if (event.target.closest("a")) return;
+            if (event.pointerType === "mouse") return;
+
+            if (root.classList.contains("is-open")) {
+                close();
+            } else {
+                open();
+            }
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initCandyLoader);
+    } else {
+        initCandyLoader();
+    }
 })();
