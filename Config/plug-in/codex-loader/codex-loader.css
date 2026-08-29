@@ -1,0 +1,9 @@
+.codex-selector.index {    display: flex;    justify-content: space-around;margin-left: auto;margin-right: auto;}
+.codex-selector.index select{
+    width: 100%;
+    height: 40px;
+    max-width: 340px;
+    border: #d7d7d7 1px solid;
+    font-family: "Noto Serif TC", "Source Han Serif TC", serif;
+    padding-left: 10px ;
+}

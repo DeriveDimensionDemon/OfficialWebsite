@@ -12,25 +12,73 @@
     <!-- Config Loader -->
     <link rel="stylesheet" href="Config/css/guide.css">
     <link rel="stylesheet" href="Config/css/theme.css">
+    <link rel="stylesheet" href="Config/css/burger.css">
+    <script src="Config/js/burger.js" defer></script>
     <!-- Plug-in Loader -->
+    <!-- Candy -->
     <link rel="stylesheet" href="Config/plug-in/candy-loader/candy-loader.css">
     <script src="Config/plug-in/candy-loader/candy-loader.js"></script>    
+    <!-- Post -->
     <link rel="stylesheet" href="Config/plug-in/post-loader/post-loader.css">
     <script src="Config/plug-in/post-loader/post-loader.js" defer></script>
-    <link rel="stylesheet" href="Config/plug-in/html-loader/html-loader.css">
-    <script src="Config/plug-in/html-loader/html-loader.js" defer></script>
+    <!-- Codex -->
+    <link rel="stylesheet" href="Config/plug-in/codex-loader/codex-loader.css">
+    <script src="Config/plug-in/codex-loader/codex-loader.js" defer></script>
 </head>
 
 <body>
 <div class="out-warper"><!-- out-warper lock max-width -->
-<header>
-  <div class="burger-summoner">
-    <div id="html-burger" class="html-loader">    </div>
-  </div>
-  <div class="logo"><a href="index.html"><img src="Config/img/icon_xs.png"></a></div>
-</header>
+
 
 <main-warper>
+  <header>
+  <div class="logo"><a href="index.html"><img src="Config/img/icon-xs.png"></a></div>
+  <!-- 本業特有頁首 START -->
+   <div class="codex-loader">
+    <div id="codex-filter-catalog" class="codex-selector index">
+      <select> 
+        <option value="" disabled selected hidden>⛛ Select Catalog</option>
+        <option value="All">⛞ Codex All</option> 
+        <option value="Official">⛡ Official</option> 
+        <option value="_Introduction">　⇲ Introduction</option> 
+        <option value="_Characters">　⇲ Characters</option> 
+        <option value="Games">⛡ Games</option> 
+        <option value="Writing">⛡ Writing</option> 
+        <option value="Short">　⛡ Short</option> 
+        <option value="Drama">　⛡ Drama</option> 
+        <option value="Policy">⛡ Policy</option> 
+        <option value="_Privacy-Policy">　⇲ Privacy Policy</option> 
+        <option value="_Terms">　⇲ Terms</option> 
+        <option value="_Fan-Content-Guidelines">　⇲ Fan Content Guidelines</option> 
+      </select>
+    </div>
+        <div id="codex-filter-tag" class="codex-selector index"><select>
+        <option value="" disabled selected hidden>⛛ Select Tag</option>
+    <optgroup label="◈ Members">
+      
+        <option value="DDD_Members">#DDD_Members</option>
+        <option value="DDD_Golden">#DDD_Golden</option>
+        <option value="DDD_White">#DDD_White</option>
+        <option value="DDD_Cyan">#DDD_Cyan</option>
+        <option value="DDD_Red">#DDD_Red</option>
+        <option value="DDD_Dark">#DDD_Dark</option>
+    </optgroup>
+
+    <optgroup label="◈ Series">
+        <option value="DDD_Teehee">#DDD_Teehee</option>
+        <option value="DDD_Games">#DDD_Games</option>
+    </optgroup>
+
+    <optgroup label="◈ More posts">
+        <option value="DDD_more">#DDD_more</option>
+    </optgroup>
+
+</select>
+    </div>
+<!-- 本頁特有頁首 END -->
+</div>
+
+</header>
 <!-- 本頁特有內容 START -->
  <div class="candy-boss">
      <div class="candy-banshee"><img src="Config/plug-in/candy-loader/candy-loader-fix.png"></div>
