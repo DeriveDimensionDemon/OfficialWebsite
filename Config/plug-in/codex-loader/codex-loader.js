@@ -458,7 +458,7 @@ appendResultHeader(title);
 
 
         appendResultHeader(
-            `⌁ #${tag}`
+            `⇲ #${tag}`
         );
 
 
