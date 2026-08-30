@@ -49,76 +49,73 @@
 
 </header>
 <!-- 本頁特有內容 START -->
- <div class="codex-loader">
-
-    <!-- Codex page header -->
-    <div class="codex-header">
-        <h1>Codex</h1>
+ <div class="codex-boss">
+ <div class="codex-loader codex-banshee">
+<!-- Now Create By JS 
+     Codex Navigation 
+    <div class="codex-header" data-codex="home">
+        <a href="index.html">⛚ Home</a>
     </div>
 
+    <div class="codex-header" data-codex="codex">
+        <a href="Codex.html?catalog=All">▧ Codex</a>
+    </div>
+-->
 
-    <!-- Catalog result -->
-    <div class="codex-catalog">
+    <!-- Catalog structure -->
+    <template id="codex-catalog-template">
 
-        <div class="codex-catalog-title">
-            <span>⛡ Official</span>
-        </div>
+        <div class="codex-catalog">
 
+            <div class="codex-catalog-title"
+                 data-codex="catalog-title">
 
-        <!-- Post list -->
-        <div class="codex-post-list">
+                <a href=""
+                   data-codex="catalog-link"></a>
 
-            <!-- Post -->
-            <div class="codex-post">
-                <div class="codex-post-title">
-                    Introduction
-                </div>
-
-                <div class="codex-post-date">
-                    2026-08-30
-                </div>
             </div>
 
-
-            <!-- Post -->
-            <div class="codex-post">
-                <div class="codex-post-title">
-                    Characters
-                </div>
-
-                <div class="codex-post-date">
-                    2026-08-30
-                </div>
+            <div class="codex-post-list"
+                 data-codex="post-list">
             </div>
 
         </div>
 
-    </div>
+    </template>
 
 
-    <!-- Another Catalog -->
-    <div class="codex-catalog">
+    <!-- Post structure -->
+    <template id="codex-post-template">
 
-        <div class="codex-catalog-title">
-            <span>⛡ Games</span>
-        </div>
+        <div class="codex-post"
+             data-codex="post">
 
-        <div class="codex-post-list">
+            <div class="codex-post-title s"
+                 data-codex="post-title">
 
-            <div class="codex-post">
-                <div class="codex-post-title">
-                    Test Game
-                </div>
+                <a href=""
+                   data-codex="post-link"></a>
 
-                <div class="codex-post-date">
-                    2026-08-28
-                </div>
+            </div>
+
+            <div class="codex-post-date"
+                 data-codex="post-date">
+
+                <span></span>
+
             </div>
 
         </div>
 
+    </template>
+
+
+    <!-- JS fills this area -->
+    <div class="codex-results"
+         data-codex="results">
     </div>
 
+</div>
 </div>
 <!-- 本頁特有內容 END -->
 </main-warper>
