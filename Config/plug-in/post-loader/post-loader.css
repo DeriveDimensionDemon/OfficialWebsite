@@ -21,6 +21,7 @@
     margin-left: auto;
     margin-right: auto;
     padding: 0;
+    padding-bottom: 10px;
 }
 /* FOR Index.html */
 
@@ -68,5 +69,11 @@
 .post-text.codex {}
 
 /* FOR Post.html */
-.post-date.post {letter-spacing: 35px; text-align: center;}
-.post-text.post {line-height: 2em;letter-spacing: 3px;}
+.post-date.post {letter-spacing:24px; text-align: center;}
+.post-text.post {line-height: 2em;letter-spacing: 0.9px;    text-align: justify;}
+.post-related-link.post:hover {
+    border: #cccccc 1px solid;
+}
+.post-related {
+    border: #ffffff 1px solid;
+}

@@ -32,15 +32,16 @@
             root.textContent = error.message;
         });
 
-    function renderPost(data) {
+        async function renderPost(data) {
         const catalog = root.querySelector(".post-catalog.post");
         const images = root.querySelector(".post-images.post");
         const date = root.querySelector(".post-date.post");
         const title = root.querySelector(".post-title.post");
         const content = root.querySelector(".post-text.post");
         const tag = root.querySelector(".post-tag.post");
+        const relatedLinks = root.querySelector(".post-related.post");
 
-        if (!catalog || !images || !date || !title || !content || !tag) {
+        if (!catalog || !images || !date || !title || !content || !tag || !relatedLinks) {
             throw new Error("Post Loader DOM structure is incomplete.");
         }
 
@@ -53,7 +54,11 @@
         renderText(date, data.date || "");
         renderTitle(title, data.title || "");
         renderContent(content, data.content || "");
-        renderTags(tag, data.tag);
+        await renderTags(tag, id);
+        renderRelatedLinks(
+            relatedLinks,
+            data.related_links
+        );
     }
 
     function renderCatalog(container, value) {
@@ -143,36 +148,109 @@
     }
 
     function renderContent(container, value) {
-        const target = container.querySelector("p");
-        if (target) target.textContent = value;
+        container.textContent = "";
+
+        const paragraphs = String(value || "")
+            .split(/\n\s*\n/)
+            .map(text => text.trim())
+            .filter(Boolean);
+
+        paragraphs.forEach(text => {
+            const p = document.createElement("p");
+            p.textContent = text;
+            container.appendChild(p);
+        });
     }
 
-    function renderTags(container, value) {
+    function renderRelatedLinks(container, value) {
         const wrapper = container.querySelector("span");
         if (!wrapper) return;
 
         wrapper.textContent = "";
 
-        const tags = Array.isArray(value)
-            ? value
-            : String(value || "")
-                .split(",")
-                .map(tag => tag.trim())
-                .filter(Boolean);
+        if (!Array.isArray(value) || value.length === 0) {
+            container.hidden = true;
+            return;
+        }
 
-        tags.forEach((tagText, index) => {
+        container.hidden = false;
+
+        value.forEach((item, index) => {
+            if (!item || !item.url) return;
+
+            if (index === 0) {
+                const label = document.createElement("span");
+                label.className = "post-related-label";
+                label.textContent = "相關連結 ⇲";
+                wrapper.appendChild(label);
+                wrapper.appendChild(document.createElement("br"));
+            }
+
             const link = document.createElement("a");
-            link.className = "post-tag-link post";
-            link.textContent = tagText;
-            link.href = `Codex.html?tag=${encodeURIComponent(
-                tagText.replace(/^#/, "")
-            )}`;
+
+            link.className = "post-related-link post";
+            link.href = item.url;
+            link.textContent = item.url;
+
+            if (item._blank === true) {
+                link.target = "_blank";
+                link.rel = "noopener";
+            }
 
             wrapper.appendChild(link);
 
-            if (index < tags.length - 1) {
-                wrapper.appendChild(document.createTextNode(" "));
+            if (index < value.length - 1) {
+                wrapper.appendChild(
+                    document.createTextNode(" ")
+                );
             }
         });
+    }
+    
+        async function renderTags(container, postId) {
+        const wrapper = container.querySelector("span");
+        if (!wrapper) return;
+
+        wrapper.textContent = "";
+
+        try {
+            const response = await fetch("Codex-W/W-Tag.json");
+
+            if (!response.ok) {
+                throw new Error(`W-Tag request failed (${response.status})`);
+            }
+
+            const data = await response.json();
+            const tags = [];
+
+            for (const [tagName, node] of Object.entries(data?.tags || {})) {
+                if (
+                    Array.isArray(node?.posts) &&
+                    node.posts.includes(postId)
+                ) {
+                    tags.push(tagName);
+                }
+            }
+
+            tags.forEach((tagText, index) => {
+                const link = document.createElement("a");
+
+                link.className = "post-tag-link post";
+                link.textContent = tagText;
+                link.href =
+                    `Codex.html?tag=${encodeURIComponent(tagText)}`;
+
+                wrapper.appendChild(link);
+
+                if (index < tags.length - 1) {
+                    wrapper.appendChild(
+                        document.createTextNode(" ")
+                    );
+                }
+            });
+
+        } catch (error) {
+            console.error("Post Tag Loader:", error);
+        }
     }
 })();

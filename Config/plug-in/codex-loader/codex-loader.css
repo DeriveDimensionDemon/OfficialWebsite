@@ -47,6 +47,7 @@
     border: 1px solid #ffffff;
 }
 
+.codex-post{border-bottom: 1px #cccccc dashed;    padding: 5px 0;}
 
 /* Hover 時只改 Border 顏色
    不改尺寸，避免 Layout Shift */
