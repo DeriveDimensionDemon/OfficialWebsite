@@ -161,6 +161,11 @@
             img.alt =
                 post.title;
 
+            img.onerror = () => {
+                img.onerror = null;
+                img.src = "Config/img/icon-s.png";
+            };
+
             img.src =
                 `Codex-Img/${post.id} (1).jpg`;
 
