@@ -1,15 +1,12 @@
 {
     "_comment": "=== Here's Will be list _.json in SELECT ===",
-
     "selector": {
         "print_posts": [
             "Official",
             "Policy"
         ]
     },
-
     "_comment_catalog": "=== Tell Which Post belong to What Catalog ===",
-
     "catalogs": {
         "Official": {
             "posts": [
@@ -41,11 +38,12 @@
                     ]
                 }
             }
-        },        
+        },
         "Gallery": {
             "children": {
                 "Scenes": {
-                    "posts": [                    
+                    "posts": [
+                        "20260831-01",
                         "20260829-02",
                         "20260826-01",
                         "20260823-02"
