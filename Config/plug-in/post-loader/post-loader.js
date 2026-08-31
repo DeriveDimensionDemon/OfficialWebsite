@@ -32,7 +32,7 @@
             root.textContent = error.message;
         });
 
-        async function renderPost(data) {
+    async function renderPost(data) {
         const catalog = root.querySelector(".post-catalog.post");
         const images = root.querySelector(".post-images.post");
         const date = root.querySelector(".post-date.post");
@@ -49,7 +49,7 @@
             ? `${data.title} | Derive Dimension Demon`
             : "Derive Dimension Demon Official Website";
 
-        renderCatalog(catalog, data.catalog);
+        await renderCatalog(catalog, id);
         renderImages(images, id);
         renderText(date, data.date || "");
         renderTitle(title, data.title || "");
@@ -61,49 +61,110 @@
         );
     }
 
-    function renderCatalog(container, value) {
-    const wrapper = container.querySelector("span");
-    if (!wrapper) return;
+    async function renderCatalog(container, postId) {
+        const wrapper = container.querySelector("span");
+        if (!wrapper) return;
 
-    wrapper.textContent = "";
+        wrapper.textContent = "";
 
-    // 固定第一層：Home
-    const homeLink = document.createElement("a");
-    homeLink.className = "post-catalog-link post";
-    homeLink.textContent = "⛚ Home";
-    homeLink.href = "index.html";
-    wrapper.appendChild(homeLink);
+        // 固定第一層：Home
+        const homeLink = document.createElement("a");
+        homeLink.className = "post-catalog-link post";
+        homeLink.textContent = "⛚ Home";
+        homeLink.href = "index.html";
+        wrapper.appendChild(homeLink);
 
-    wrapper.appendChild(document.createTextNode(" "));
-
-    // 固定第二層：Codex
-    const codexLink = document.createElement("a");
-    codexLink.className = "post-catalog-link post";
-    codexLink.textContent = "⛞ Codex";
-    codexLink.href = "Codex.html";
-    wrapper.appendChild(codexLink);
-
-    // JSON Catalog：從第三層開始
-    const path = Array.isArray(value)
-        ? value.filter(Boolean).map(String)
-        : String(value || "")
-            .split("/")
-            .map(part => part.trim())
-            .filter(Boolean);
-
-    path.forEach((part, index) => {
         wrapper.appendChild(document.createTextNode(" "));
 
-        const link = document.createElement("a");
-        link.className = "post-catalog-link post";
-        link.textContent = `⛡ ${part}`;
+        // 固定第二層：Codex
+        const codexLink = document.createElement("a");
+        codexLink.className = "post-catalog-link post";
+        codexLink.textContent = "⛞ Codex";
+        codexLink.href = "Codex.html";
+        wrapper.appendChild(codexLink);
 
-        const cumulativePath = path.slice(0, index + 1).join("/");
-        link.href = `Codex.html?catalog=${encodeURIComponent(cumulativePath)}`;
+        try {
+            // Catalog 的正式來源是 W-Catalog。
+            // Post JSON 不需要重複保存 catalog。
+            const response = await fetch("Codex-W/W-Catalog.json");
 
-        wrapper.appendChild(link);
-    });
-}
+            if (!response.ok) {
+                throw new Error(
+                    `W-Catalog request failed (${response.status})`
+                );
+            }
+
+            const data = await response.json();
+
+            const path = findCatalogPath(
+                data?.catalogs || {},
+                postId,
+                ""
+            );
+
+            if (!path) return;
+
+            path.split("/")
+                .filter(Boolean)
+                .forEach((part, index, parts) => {
+                    wrapper.appendChild(
+                        document.createTextNode(" ")
+                    );
+
+                    const link = document.createElement("a");
+                    link.className = "post-catalog-link post";
+                    link.textContent = `⛡ ${part}`;
+
+                    const cumulativePath =
+                        parts.slice(0, index + 1).join("/");
+
+                    link.href =
+                        `Codex.html?catalog=${encodeURIComponent(cumulativePath)}`;
+
+                    wrapper.appendChild(link);
+                });
+
+        } catch (error) {
+            console.error(
+                "Post Catalog Loader:",
+                error
+            );
+        }
+    }
+
+    function findCatalogPath(
+        catalogs,
+        postId,
+        parentPath
+    ) {
+        for (const [name, node] of Object.entries(catalogs || {})) {
+
+            const path = parentPath
+                ? `${parentPath}/${name}`
+                : name;
+
+            if (
+                Array.isArray(node?.posts) &&
+                node.posts.some(
+                    id => String(id) === String(postId)
+                )
+            ) {
+                return path;
+            }
+
+            const childPath = findCatalogPath(
+                node?.children || {},
+                postId,
+                path
+            );
+
+            if (childPath) {
+                return childPath;
+            }
+        }
+
+        return "";
+    }
 
     function renderImages(container, postId) {
         container.textContent = "";
@@ -111,14 +172,21 @@
         let imageNumber = 1;
 
         const loadNext = () => {
-            const src = `Codex-Img/${postId} (${imageNumber}).jpg`;
+            const src =
+                `Codex-Img/${postId} (${imageNumber}).jpg`;
+
             const img = new Image();
 
-            img.alt = `${postId} (${imageNumber})`;
+            img.alt =
+                `${postId} (${imageNumber})`;
 
             img.onload = () => {
-                const imageBlock = document.createElement("div");
-                imageBlock.className = "post-image post";
+                const imageBlock =
+                    document.createElement("div");
+
+                imageBlock.className =
+                    "post-image post";
+
                 imageBlock.appendChild(img);
                 container.appendChild(imageBlock);
 
@@ -138,13 +206,21 @@
     }
 
     function renderText(container, value) {
-        const target = container.querySelector("span");
-        if (target) target.textContent = value;
+        const target =
+            container.querySelector("span");
+
+        if (target) {
+            target.textContent = value;
+        }
     }
 
     function renderTitle(container, value) {
-        const target = container.querySelector("h2");
-        if (target) target.textContent = value;
+        const target =
+            container.querySelector("h2");
+
+        if (target) {
+            target.textContent = value;
+        }
     }
 
     function renderContent(container, value) {
@@ -156,19 +232,26 @@
             .filter(Boolean);
 
         paragraphs.forEach(text => {
-            const p = document.createElement("p");
+            const p =
+                document.createElement("p");
+
             p.textContent = text;
             container.appendChild(p);
         });
     }
 
     function renderRelatedLinks(container, value) {
-        const wrapper = container.querySelector("span");
+        const wrapper =
+            container.querySelector("span");
+
         if (!wrapper) return;
 
         wrapper.textContent = "";
 
-        if (!Array.isArray(value) || value.length === 0) {
+        if (
+            !Array.isArray(value) ||
+            value.length === 0
+        ) {
             container.hidden = true;
             return;
         }
@@ -179,16 +262,27 @@
             if (!item || !item.url) return;
 
             if (index === 0) {
-                const label = document.createElement("span");
-                label.className = "post-related-label";
-                label.textContent = "相關連結 ⇲";
+                const label =
+                    document.createElement("span");
+
+                label.className =
+                    "post-related-label";
+
+                label.textContent =
+                    "相關連結 ⇲";
+
                 wrapper.appendChild(label);
-                wrapper.appendChild(document.createElement("br"));
+                wrapper.appendChild(
+                    document.createElement("br")
+                );
             }
 
-            const link = document.createElement("a");
+            const link =
+                document.createElement("a");
 
-            link.className = "post-related-link post";
+            link.className =
+                "post-related-link post";
+
             link.href = item.url;
             link.textContent = item.url;
 
@@ -206,24 +300,34 @@
             }
         });
     }
-    
-        async function renderTags(container, postId) {
-        const wrapper = container.querySelector("span");
+
+    async function renderTags(container, postId) {
+        const wrapper =
+            container.querySelector("span");
+
         if (!wrapper) return;
 
         wrapper.textContent = "";
 
         try {
-            const response = await fetch("Codex-W/W-Tag.json");
+            const response =
+                await fetch("Codex-W/W-Tag.json");
 
             if (!response.ok) {
-                throw new Error(`W-Tag request failed (${response.status})`);
+                throw new Error(
+                    `W-Tag request failed (${response.status})`
+                );
             }
 
-            const data = await response.json();
+            const data =
+                await response.json();
+
             const tags = [];
 
-            for (const [tagName, node] of Object.entries(data?.tags || {})) {
+            for (
+                const [tagName, node]
+                of Object.entries(data?.tags || {})
+            ) {
                 if (
                     Array.isArray(node?.posts) &&
                     node.posts.includes(postId)
@@ -233,10 +337,14 @@
             }
 
             tags.forEach((tagText, index) => {
-                const link = document.createElement("a");
+                const link =
+                    document.createElement("a");
 
-                link.className = "post-tag-link post";
+                link.className =
+                    "post-tag-link post";
+
                 link.textContent = tagText;
+
                 link.href =
                     `Codex.html?tag=${encodeURIComponent(tagText)}`;
 
@@ -250,7 +358,10 @@
             });
 
         } catch (error) {
-            console.error("Post Tag Loader:", error);
+            console.error(
+                "Post Tag Loader:",
+                error
+            );
         }
     }
 })();
