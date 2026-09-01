@@ -595,6 +595,18 @@ appendResultHeader(title);
             postId;
 
 
+        const imageBlock =
+            post.querySelector(
+                '[data-codex="post-image"]'
+            );
+
+
+        const image =
+            post.querySelector(
+                '[data-codex="post-image-link"]'
+            );
+
+
         const titleLink =
             post.querySelector(
                 '[data-codex="post-link"]'
@@ -607,6 +619,37 @@ appendResultHeader(title);
             );
 
 
+        const displayTitle =
+            data?.title ||
+            humanizeId(postId);
+
+
+        if (imageBlock && image) {
+            image.className =
+                "post codex";
+
+            image.alt =
+                displayTitle;
+
+            image.src =
+                `Codex-Img/${encodeURIComponent(
+                    postId
+                )}%20(1).jpg`;
+
+            image.loading =
+                "lazy";
+
+            image.decoding =
+                "async";
+
+            image.addEventListener(
+                "error",
+                () => imageBlock.remove(),
+                { once: true }
+            );
+        }
+
+
         if (titleLink) {
             titleLink.href =
                 `Post.html?id=${encodeURIComponent(
@@ -614,8 +657,7 @@ appendResultHeader(title);
                 )}`;
 
             titleLink.textContent =
-                data?.title ||
-                humanizeId(postId);
+                displayTitle;
         }
 
 

@@ -152,24 +152,33 @@
             imageBlock.className =
                 "post-image index";
 
-            const img =
+            const image =
                 document.createElement("img");
 
-            img.className =
+            image.className =
                 "post index";
 
-            img.alt =
+            image.alt =
                 post.title;
 
-            img.onerror = () => {
-                img.onerror = null;
-                img.src = "Config/img/icon-s.png";
-            };
+            image.loading =
+                "lazy";
 
-            img.src =
-                `Codex-Img/${post.id} (1).jpg`;
+            image.decoding =
+                "async";
 
-            imageBlock.appendChild(img);
+            image.addEventListener(
+                "error",
+                () => imageBlock.remove(),
+                { once: true }
+            );
+
+            image.src =
+                `Codex-Img/${encodeURIComponent(
+                    post.id
+                )}%20(1).jpg`;
+
+            imageBlock.appendChild(image);
 
             const titleBlock =
                 document.createElement("div");
