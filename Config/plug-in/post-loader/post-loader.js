@@ -83,6 +83,24 @@
         codexLink.href = "Codex.html";
         wrapper.appendChild(codexLink);
 
+        const getLink = document.createElement("a");
+        getLink.className = "post-get-link post";
+        getLink.href = "#";
+        getLink.textContent = "⿻ Get post link";
+
+        getLink.addEventListener("click", async event => {
+            event.preventDefault();
+
+            const success = await copyPostLink();
+            showPostLinkNotice(success ? "◈ Link Copied ◈" : "◈ Copy Failed ◈");
+        });
+
+        // Keep Get post link inside its own span,
+        // so all Post links remain grouped inside span elements.
+        const getLinkWrapper = document.createElement("span");
+        getLinkWrapper.appendChild(getLink);
+        container.appendChild(getLinkWrapper);
+
         try {
             // Catalog 的正式來源是 W-Catalog。
             // Post JSON 不需要重複保存 catalog。
@@ -130,6 +148,63 @@
                 error
             );
         }
+    }
+
+    async function copyPostLink() {
+        const url = window.location.href;
+
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(url);
+                return true;
+            }
+        } catch (error) {
+            console.warn("Post Link Clipboard API:", error);
+        }
+
+        try {
+            const textarea = document.createElement("textarea");
+            textarea.value = url;
+            textarea.setAttribute("readonly", "");
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            textarea.style.pointerEvents = "none";
+
+            document.body.appendChild(textarea);
+            textarea.select();
+            textarea.setSelectionRange(0, textarea.value.length);
+
+            const success = document.execCommand("copy");
+            textarea.remove();
+
+            return success;
+        } catch (error) {
+            console.error("Post Link Copy:", error);
+            return false;
+        }
+    }
+
+    function showPostLinkNotice(message) {
+        const existing = document.querySelector(".post-link-notice.post");
+        if (existing) existing.remove();
+
+        const notice = document.createElement("div");
+        notice.className = "post-link-notice post";
+        notice.textContent = message;
+
+        document.body.appendChild(notice);
+
+        requestAnimationFrame(() => {
+            notice.classList.add("is-visible");
+        });
+
+        setTimeout(() => {
+            notice.classList.remove("is-visible");
+
+            setTimeout(() => {
+                notice.remove();
+            }, 220);
+        }, 900);
     }
 
     function findCatalogPath(
