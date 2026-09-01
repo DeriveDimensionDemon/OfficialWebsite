@@ -39,9 +39,10 @@
         const title = root.querySelector(".post-title.post");
         const content = root.querySelector(".post-text.post");
         const tag = root.querySelector(".post-tag.post");
+        const readmore = root.querySelector(".post-readmore.post");
         const relatedLinks = root.querySelector(".post-related.post");
 
-        if (!catalog || !images || !date || !title || !content || !tag || !relatedLinks) {
+        if (!catalog || !images || !date || !title || !content || !tag || !readmore || !relatedLinks) {
             throw new Error("Post Loader DOM structure is incomplete.");
         }
 
@@ -59,6 +60,7 @@
             relatedLinks,
             data.related_links
         );
+        await renderReadmore(readmore, id);
     }
 
     async function renderCatalog(container, postId) {
@@ -92,7 +94,7 @@
             event.preventDefault();
 
             const success = await copyPostLink();
-            showPostLinkNotice(success ? "◈ Link Copied ◈" : "◈ Copy Failed ◈");
+            showPostLinkNotice(success ? "Link Copied" : "Copy Failed");
         });
 
         // Keep Get post link inside its own span,
@@ -205,6 +207,109 @@
                 notice.remove();
             }, 220);
         }, 900);
+    }
+
+    async function renderReadmore(container, postId) {
+        const previousWrapper = container.querySelector("span:first-child");
+        const nextWrapper = container.querySelector("span:last-child");
+
+        if (!previousWrapper || !nextWrapper) return;
+
+        previousWrapper.textContent = "";
+        nextWrapper.textContent = "";
+        container.hidden = true;
+
+        try {
+            // W-Catalog 是上一篇／下一篇的唯一來源。
+            // 只統計符合 YYYYMMDD-0x 的 Post ID。
+            const response = await fetch("Codex-W/W-Catalog.json");
+
+            if (!response.ok) {
+                throw new Error(
+                    `W-Catalog request failed (${response.status})`
+                );
+            }
+
+            const data = await response.json();
+            const postIds = collectReadmorePostIds(data?.catalogs || {});
+
+            postIds.sort((a, b) => {
+                const [dateA, numberA] = a.split("-");
+                const [dateB, numberB] = b.split("-");
+
+                return (
+                    dateA.localeCompare(dateB) ||
+                    Number(numberA) - Number(numberB)
+                );
+            });
+
+            const currentIndex = postIds.indexOf(postId);
+            if (currentIndex === -1) return;
+
+            const previousId = postIds[currentIndex - 1];
+            const nextId = postIds[currentIndex + 1];
+
+            if (previousId) {
+                previousWrapper.appendChild(
+                    createReadmoreLink(
+                        previousId,
+                        "‹ Previous",
+                        "post-prev-link post"
+                    )
+                );
+            }
+
+            if (nextId) {
+                nextWrapper.appendChild(
+                    createReadmoreLink(
+                        nextId,
+                        "Next ›",
+                        "post-next-link post"
+                    )
+                );
+            }
+
+            if (previousId || nextId) {
+                container.hidden = false;
+            }
+        } catch (error) {
+            console.error(
+                "Post Readmore Loader:",
+                error
+            );
+        }
+    }
+
+    function collectReadmorePostIds(catalogs, result = []) {
+        const pattern = /^(\d{8})-(0[1-9])$/;
+
+        for (const node of Object.values(catalogs || {})) {
+            if (Array.isArray(node?.posts)) {
+                node.posts.forEach(postId => {
+                    const value = String(postId);
+                    if (pattern.test(value) && !result.includes(value)) {
+                        result.push(value);
+                    }
+                });
+            }
+
+            collectReadmorePostIds(
+                node?.children || {},
+                result
+            );
+        }
+
+        return result;
+    }
+
+    function createReadmoreLink(postId, text, className) {
+        const link = document.createElement("a");
+
+        link.className = className;
+        link.href = `Post.html?id=${encodeURIComponent(postId)}`;
+        link.textContent = text;
+
+        return link;
     }
 
     function findCatalogPath(

@@ -13,6 +13,9 @@
    .post-catalog-link.post
    .post-get-link.post
    .post-tag-link.post
+   .post-readmore.post
+   .post-prev-link.post
+   .post-next-link.post
 */
 
 /* EVERYWHERE SUMMON */
@@ -108,16 +111,14 @@
     z-index: 2000;
 
     transform: translate(-50%, -50%);
-    padding: 6px 12px;
-    width:340px;
-    text-align:center;
+    padding: 12px 22px;
 
     border: 1px solid rgb(255 255 255 / 70%);
-    border-radius: 3px;
-    background: rgba(255, 255, 255, 1);
-    color: #696969;
+    border-radius: 8px;
+    background: rgb(20 20 20 / 88%);
+    color: #ffffff;
 
-    font-size: clamp(12px, 1vw, 12px);
+    font-size: clamp(14px, 1vw, 16px);
     line-height: 1.2;
     letter-spacing: 0.5px;
 
@@ -128,4 +129,38 @@
 
 .post-link-notice.post.is-visible {
     opacity: 1;
+}
+
+/* Post previous / next navigation */
+.post-readmore.post {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 15px;
+    margin-bottom:10px;
+    border-top: 1px dashed #eeeeee;
+}
+
+.post-readmore.post > span {
+    min-width: 0;
+}
+
+.post-readmore.post > span:last-child {
+    margin-left: auto;
+    text-align: right;
+}
+
+.post-prev-link.post,
+.post-next-link.post {
+    white-space: nowrap;
+}
+
+.post-tag.post, .post-related.post{padding-bottom:10px;}
+.post-readmore.post, .post-tag.post { border-top: 1px dashed #eeeeee;}
+
+.post-tag.post a {padding-right:10px;}
+.post-tag-link.post::before {
+    content: "#";
+    margin-right: 0.25em;
 }
