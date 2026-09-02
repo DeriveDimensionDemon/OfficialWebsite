@@ -94,7 +94,7 @@
             event.preventDefault();
 
             const success = await copyPostLink();
-            showPostLinkNotice(success ? "Link Copied" : "Copy Failed");
+            showPostLinkNotice(success ? "◈ Link Copied ◈" : "◈ Copy Failed ◈");
         });
 
         // Keep Get post link inside its own span,
