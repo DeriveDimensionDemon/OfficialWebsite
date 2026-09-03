@@ -404,21 +404,49 @@
     }
 
     function renderContent(container, value) {
-        container.textContent = "";
+    container.textContent = "";
 
-        const paragraphs = String(value || "")
-            .split(/\n\s*\n/)
-            .map(text => text.trim())
-            .filter(Boolean);
+    /*
+     * 文章排版規則：
+     *
+     * 整篇文章只使用一個 <p>。
+     * 每一個原始換行輸出為一個 <br>。
+     *
+     *   第一段。\n第二段。
+     *
+     * → <p>第一段。<br>第二段。</p>
+     *
+     *   第一段。\n\n第二段。
+     *
+     * → <p>第一段。<br><br>第二段。</p>
+     *
+     * 不再混用多個 <p> 的 margin 與 <br>。
+     * 使用 text nodes + createElement("br")，
+     * 不使用 innerHTML。
+     */
 
-        paragraphs.forEach(text => {
-            const p =
-                document.createElement("p");
+    const p =
+        document.createElement("p");
 
-            p.textContent = text;
-            container.appendChild(p);
-        });
-    }
+    const lines =
+        String(value || "")
+            .replace(/\r\n|\r/g, "\n")
+            .split("\n");
+
+    lines.forEach((line, index) => {
+        p.appendChild(
+            document.createTextNode(line)
+        );
+
+        if (index < lines.length - 1) {
+            p.appendChild(
+                document.createElement("br")
+            );
+        }
+    });
+
+    container.appendChild(p);
+}
 
     function renderRelatedLinks(container, value) {
         const wrapper =
